@@ -1,3 +1,4 @@
+import com.eclipsesource.json.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -8,8 +9,12 @@ import java.util.Scanner;
 public class GUI {
     public static int cols,rows,total;
     public static Scanner sc;
+    public static JFileChooser filec;
+    private Json jparser;
 
     private ArrayList<String> dataArray = new ArrayList<>();
+
+    public static String address;
 
     GUI() {
         JFrame frame = new JFrame("tabel");
@@ -20,16 +25,23 @@ public class GUI {
     }
 
     private JPanel panel() {
+        filec= new JFileChooser();
+        filec.showOpenDialog(null);
+        try {
+            System.out.println(filec.getSelectedFile().getPath());
+            address=filec.getSelectedFile().getPath();
+        }catch (Exception e){}
         Calc.calco();
         JPanel panel1 = new JPanel(new GridLayout(rows,cols));
         panel1.setBorder(BorderFactory.createLineBorder(Color.black, 10));
         System.out.println(total);
         String page = "";
+
         for (int i = 0; i <total; i++) {
             JTextField text = new JTextField(total);
             text.setEditable(false);
             try {
-                File f = new File("src/sample.csv");
+                 File f = new File(address);
                 sc = new Scanner(f);
                 while (sc.hasNext()) {
                     String line = sc.nextLine();
