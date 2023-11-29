@@ -27,7 +27,7 @@ OrderDate,Region,Rep1,Rep2,Item,Units,UnitCost,Total
 3/7/2020,West,Sorvino,Judi,Binder,7,20.39,140.33.00
 3/24/2020,Central,Jardine,Kimiko,Pen Set,50,05.39,249.5
 4/10/2020,Central,Andrews,Alpha,Pencil,66,02.39,131.34.00
-4/27/2020,East,Howard,,Pen,96,05.39,479.04.00
+4/27/2020,East,Howard,Pen,96,05.39,479.04.00,
 5/14/2020,Central,Gill,Ronnie,Pencil,53,01.29,68.37.00
 5/31/2020,Central,Gill,Janean,Binder,80,09.39,719.2
 6/17/2020,Central,Kivell,Maxwell,Desk,5,125,625
