@@ -35,22 +35,18 @@ public class Calc extends GUI {
             String page = "";
             while (sc.hasNext()) {
                 String line = sc.nextLine();
-                System.out.println(line);
+                String[] array = line.split(",");
                 page += line;
-                System.out.println(line.length());
             }
             sc.close();
-
             JsonValue jv = Json.parse(page);
-            JsonArray ja = jv.asArray();
-
-            JsonObject jo = ja.get(0).asObject();
+            JsonArray jd = jv.asArray();
+            JsonObject jo = jd.get(0).asObject();
             System.out.println(jo.names().size());
-            for (int i = 0; i < ja.size() - 1; i++) {
-                JsonObject j = ja.get(i).asObject();
-                System.out.println(j.get("A:"));
-                System.out.println(j.get("B:"));
-                System.out.println(j.get("C:"));
+
+            for (int i = 0; i < jd.size() - 1; i++) {
+                JsonObject j = jd.get(i).asObject();
+                rows++;
             }
 
     } catch (FileNotFoundException e) {

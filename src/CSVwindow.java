@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class CSVwindow extends GUI {
-    CSVwindow(){
+    CSVwindow() {
         JFrame frame = new JFrame("tabel");
         frame.setSize(500, 500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -15,15 +15,27 @@ public class CSVwindow extends GUI {
         frame.setVisible(true);
 
     }
+
     public static JPanel panel() {
-        filel= new JFileChooser();
+
+        /*allows the user to pick a file*/
+        filel = new JFileChooser();
+
         filel.showOpenDialog(null);
         try {
-            address=filel.getSelectedFile().getPath();
-        }catch (Exception x){}
+
+            /*gets the paths of said file*/
+            address = filel.getSelectedFile().getPath();
+
+        } catch (Exception x) {
+        }
+
+        /*calculates the rows and colums of said file*/
         Calc.calco();
+
         JPanel panel1 = new JPanel(new GridLayout(rows, cols));
         panel1.setBorder(BorderFactory.createLineBorder(Color.black, 10));
+
         for (int i = 0; i < total; i++) {
             JTextField text = new JTextField(total);
             text.setEditable(false);
@@ -36,14 +48,13 @@ public class CSVwindow extends GUI {
                     String[] array = line.split(",", cols);
                     people.add(new People(array[0]));
                     dataArray.addAll(Arrays.asList(array));
-
                 }
                 sc.close();
             } catch (Exception e) {
                 System.out.println("ERROR" + e.toString());
             }
             text.setText(dataArray.get(i));
-            panel1.add(text,BorderLayout.CENTER);
+            panel1.add(text, BorderLayout.CENTER);
 
         }
         return panel1;

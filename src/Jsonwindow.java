@@ -2,22 +2,35 @@ import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class Jsonwindow extends GUI{
-    Jsonwindow(){
+public class Jsonwindow extends GUI {
+    Jsonwindow() {
         JFrame frame = new JFrame("tabel");
         frame.setSize(500, 500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(json());
         frame.setVisible(true);
     }
-        private JPanel json() {
+
+    private JPanel json() {
+        filel = new JFileChooser();
+        filel.showOpenDialog(null);
+        try {
+            address = filel.getSelectedFile().getPath();
+        } catch (Exception x) {
+        }
+
+        /*uses the calculation in calcoj to display the json file properly*/
         Calc.calcoj();
-        JPanel panel2 = new JPanel(new GridLayout());
+
+
+        JPanel panel2 = new JPanel(new GridLayout(rows, 0));
         panel2.setBorder(BorderFactory.createLineBorder(Color.black, 10));
 
         try {
@@ -28,20 +41,21 @@ public class Jsonwindow extends GUI{
                 String line = sc.nextLine();
                 //System.out.println(line);
                 page += line;
-                 System.out.println(line.length());
+                System.out.println(line.length());
             }
             sc.close();
-
+            String[] array  = page.split("}");
             JsonValue jv = Json.parse(page);
-            JsonArray ja = jv.asArray();
+            JsonArray jd = jv.asArray();
 
-            JsonObject jo = ja.get(0).asObject();
+            JsonObject jo = jd.get(0).asObject();
             System.out.println(jo.names().size());
-            for (int i = 0; i < ja.size() - 1; i++) {
-                JsonObject j = ja.get(i).asObject();
-                System.out.println(j.get("A:"));
-                System.out.println(j.get("B:"));
-                System.out.println(j.get("C:"));
+            for (int i = 0; i < jd.size() - 1; i++) {
+                JTextField text = new JTextField(i);
+                text.setEditable(false);
+                JsonObject j = jd.get(i).asObject();
+                text.setText(array[i]);
+                panel2.add(text);
             }
             return panel2;
         } catch (Exception e) {
