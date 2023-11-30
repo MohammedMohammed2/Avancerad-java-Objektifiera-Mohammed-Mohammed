@@ -20,7 +20,7 @@ public class CSVwindow extends GUI {
 
         /*allows the user to pick a file*/
         filel = new JFileChooser();
-
+        filel.setCurrentDirectory(new File("C:\\Users\\sahar\\OneDrive\\Skrivbord\\skisser"));
         filel.showOpenDialog(null);
         try {
 

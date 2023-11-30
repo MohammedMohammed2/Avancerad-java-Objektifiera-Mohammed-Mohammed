@@ -1,16 +1,16 @@
-public class People implements Comparable<People>{
+public class People implements Comparable<People> {
     private String name;
 
     public People(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String toString(){
-        return"name="+ name;
+    public String toString() {
+        return "name=" + name;
     }
 
     @Override

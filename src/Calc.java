@@ -5,6 +5,7 @@ import com.eclipsesource.json.JsonValue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Calc extends GUI {
@@ -15,12 +16,17 @@ public class Calc extends GUI {
         try {
             File f = new File(address);
             sc = new Scanner(f);
+            boolean isHeader = false;
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] array = line.split(",");
+                if(!isHeader) {
+                    cols = array.length;
+                    isHeader = true;
+                }
                 rows++;
-                cols = array.length;
             }
+
             sc.close();
             total=cols*rows;
         } catch (Exception e){
@@ -35,19 +41,16 @@ public class Calc extends GUI {
             String page = "";
             while (sc.hasNext()) {
                 String line = sc.nextLine();
-                String[] array = line.split(",");
                 page += line;
             }
-            sc.close();
             JsonValue jv = Json.parse(page);
             JsonArray jd = jv.asArray();
             JsonObject jo = jd.get(0).asObject();
-            System.out.println(jo.names().size());
+            List<String> col = jo.names();
+            cols=col.size();
 
-            for (int i = 0; i < jd.size() - 1; i++) {
-                JsonObject j = jd.get(i).asObject();
-                rows++;
-            }
+
+
 
     } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

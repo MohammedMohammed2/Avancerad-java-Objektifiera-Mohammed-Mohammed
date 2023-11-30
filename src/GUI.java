@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.spi.FileTypeDetector;
 import java.util.*;
+import java.util.List;
 
 public class GUI {
+    public static List<String> col ;
     public static int cols, rows, total;
     public static Scanner sc;
     public static JFileChooser filel;
@@ -47,7 +49,8 @@ public class GUI {
         panel3.add(button2);
         return panel3;
     }
-/*my action lisenter*/
+
+    /*my action lisenter*/
     class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Jsonwindow extends GUI {
@@ -20,17 +21,19 @@ public class Jsonwindow extends GUI {
 
     private JPanel json() {
         filel = new JFileChooser();
+        filel.setCurrentDirectory(new File("C:\\Users\\sahar\\OneDrive\\Skrivbord\\skisser"));
         filel.showOpenDialog(null);
         try {
             address = filel.getSelectedFile().getPath();
         } catch (Exception x) {
         }
+        System.out.println(address);
 
         /*uses the calculation in calcoj to display the json file properly*/
         Calc.calcoj();
 
 
-        JPanel panel2 = new JPanel(new GridLayout(rows, 0));
+        JPanel panel2 = new JPanel(new GridLayout(rows, cols));
         panel2.setBorder(BorderFactory.createLineBorder(Color.black, 10));
 
         try {
@@ -38,24 +41,49 @@ public class Jsonwindow extends GUI {
             sc = new Scanner(f);
             String page = "";
             while (sc.hasNext()) {
-                String line = sc.nextLine();
+               String line = sc.nextLine();
                 //System.out.println(line);
                 page += line;
-                System.out.println(line.length());
             }
             sc.close();
-            String[] array  = page.split("}");
+            String[] array = page.split("\\{|}|\\[",cols);
             JsonValue jv = Json.parse(page);
             JsonArray jd = jv.asArray();
 
             JsonObject jo = jd.get(0).asObject();
-            System.out.println(jo.names().size());
-            for (int i = 0; i < jd.size() - 1; i++) {
+            List<String> col = jo.names();
+
+            /*for (String s:
+            col) {
+                //System.out.println("headers:  "+s);
+                //System.out.println(jo.get(s));
+
+            }*/
+
+            for (int i = 0; i < rows; i++) {
                 JTextField text = new JTextField(i);
                 text.setEditable(false);
-                JsonObject j = jd.get(i).asObject();
-                text.setText(array[i]);
-                panel2.add(text);
+
+                for (String s:col) {
+
+                    //text.setText(array[i]);
+                    //System.out.println("headers:  "+s);
+                   // System.out.println(s);
+                   // System.out.println(jo.get(s));
+
+                   // System.out.println(jd.get(i).asObject().get(s).asString());
+                    text.setText(jd.get(i).asObject().get(s).asString());
+
+                            panel2.add(text);
+
+                    //dataArray.add(String.valueOf(jd.get(i).asObject().get(s)));
+                }
+
+
+                //text.setText(jd.get(i).asObject().get(col));
+               // text.setText(jd.get(i).asObject().get("A").asString());
+
+
             }
             return panel2;
         } catch (Exception e) {
