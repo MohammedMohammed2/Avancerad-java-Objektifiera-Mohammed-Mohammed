@@ -39,14 +39,12 @@ public class CSVwindow extends GUI {
         for (int i = 0; i < total; i++) {
             JTextField text = new JTextField(total);
             text.setEditable(false);
-            Set<People> people = new TreeSet<>();
             try {
                 File f = new File(address);
                 sc = new Scanner(f);
                 while (sc.hasNext()) {
                     String line = sc.nextLine();
                     String[] array = line.split(",", cols);
-                    people.add(new People(array[0]));
                     dataArray.addAll(Arrays.asList(array));
                 }
                 sc.close();

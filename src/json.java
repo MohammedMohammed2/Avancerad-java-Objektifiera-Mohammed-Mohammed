@@ -81,12 +81,9 @@ public class json extends GUI {
 
             /*after a full line of colums is filled left to right this clears old data and move on the next line and does the same thing over and over again*/
             rowsfill.clear();
-
         }
-
+        jsontable.setAutoCreateRowSorter(true);
         DefaultTableModel model = new DefaultTableModel(dataList, colnames);
-        TableRowSorter sort = new TableRowSorter<>(model);
-        jsontable.setRowSorter(sort);
         jsontable.setEnabled(false);
         jsontable.setModel(model);
         panel.add(jsontable);
