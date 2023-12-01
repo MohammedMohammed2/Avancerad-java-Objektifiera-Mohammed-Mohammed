@@ -5,6 +5,7 @@ import com.eclipsesource.json.JsonValue;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.io.File;
@@ -15,7 +16,6 @@ public class json extends GUI {
     private Vector<Vector<String>> dataList = new Vector<>();
     public static Vector<String> rowsfill = new Vector<>();
     public static Vector<String> colnames = new Vector<>();
-
 
     private String page = "";
 
@@ -41,9 +41,6 @@ public class json extends GUI {
         } catch (Exception x) {
         }
         JPanel panel = new JPanel(new BorderLayout());
-
-        /*creates a jtaabel*/
-        JTable jsontable = new JTable();
         try {
             File f = new File(address);
             sc = new Scanner(f);
@@ -64,6 +61,9 @@ public class json extends GUI {
 
         /*adds data */
         colnames.addAll(jo.names());
+
+        /*creates a jtaabel*/
+        JTable jsontable = new JTable();
 
         for (int i = 0; i < ja.size(); i++) {
             JsonObject record = ja.get(i).asObject();
@@ -90,6 +90,7 @@ public class json extends GUI {
         jsontable.setEnabled(false);
         jsontable.setModel(model);
         panel.add(jsontable);
+
         return panel;
     }
 }
