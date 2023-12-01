@@ -30,16 +30,15 @@ public class json extends GUI {
     private JPanel jsonpan() {
         /*user gets to chose a file*/
         filel = new JFileChooser();
-
-        filel.setCurrentDirectory(new File("C:\\Users\\sahar\\OneDrive\\Skrivbord\\skisser"));
         filel.showOpenDialog(null);
+
         try {
 
             /*gets the paths of said file*/
             address = filel.getSelectedFile().getPath();
 
-        } catch (Exception x) {
-        }
+        } catch (Exception x) {}
+
         JPanel panel = new JPanel(new BorderLayout());
         try {
             File f = new File(address);
@@ -79,7 +78,7 @@ public class json extends GUI {
             /*places data in a list*/
             dataList.add(new Vector<>(rowsfill));
 
-            /*after a full line of colums is filled left to right this clears old data and move on the next line and does the same thing over and over again*/
+            /*after a full line of colums is filled left to right this clears old data and moves on the next line and does the same thing over and over again*/
             rowsfill.clear();
         }
         jsontable.setAutoCreateRowSorter(true);
