@@ -28,7 +28,9 @@ public class json extends GUI {
     }
 
     private JPanel jsonpan() {
+        /*user gets to chose a file*/
         filel = new JFileChooser();
+
         filel.setCurrentDirectory(new File("C:\\Users\\sahar\\OneDrive\\Skrivbord\\skisser"));
         filel.showOpenDialog(null);
         try {
@@ -39,6 +41,8 @@ public class json extends GUI {
         } catch (Exception x) {
         }
         JPanel panel = new JPanel(new BorderLayout());
+
+        /*creates a jtaabel*/
         JTable jsontable = new JTable();
         try {
             File f = new File(address);
@@ -52,22 +56,33 @@ public class json extends GUI {
         }
         sc.close();
         JsonValue jv = Json.parse(page);
+
+        /*makes an array for said json file*/
         JsonArray ja = jv.asArray();
+
         JsonObject jo = ja.get(0).asObject();
+
+        /*adds data */
         colnames.addAll(jo.names());
+
         for (int i = 0; i < ja.size(); i++) {
             JsonObject record = ja.get(i).asObject();
+
+            /*uses the size of the colnames(colums) to loop */
             for (int j = 0; j < colnames.size(); j++) {
 
+                /*adds the data in record*/
                 rowsfill.add(String.valueOf(record.get(colnames.get(j))));
 
             }
 
+            /*places data in a list*/
             dataList.add(new Vector<>(rowsfill));
+
+            /*after a full line of colums is filled left to right this clears old data and move on the next line and does the same thing over and over again*/
             rowsfill.clear();
 
         }
-        System.out.println(dataList);
 
         DefaultTableModel model = new DefaultTableModel(dataList, colnames);
         TableRowSorter sort = new TableRowSorter<>(model);
