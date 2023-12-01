@@ -61,7 +61,7 @@ public class GUI {
             }
             /*opens a new frame for json files*/
             if (buttonClicked.equals(button2)) {
-                Jsonwindow myJson = new Jsonwindow();
+                json myJson = new json();
             }
         }
     }
