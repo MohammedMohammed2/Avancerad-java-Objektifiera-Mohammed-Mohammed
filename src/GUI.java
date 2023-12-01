@@ -1,23 +1,14 @@
-import com.eclipsesource.json.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.spi.FileTypeDetector;
 import java.util.*;
-import java.util.List;
 
 public class GUI {
-    public static List<String> col ;
     public static int cols, rows, total;
     public static Scanner sc;
     public static JFileChooser filel;
     public static JButton button1, button2;
-    public Json jparser;
 
     public static ArrayList<String> dataArray = new ArrayList<>();
 

@@ -2,21 +2,19 @@ import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-import java.util.List;
 
 public class json extends GUI {
     private Vector<Vector<String>> dataList = new Vector<>();
     public static Vector<String> rowsfill = new Vector<>();
-    public static Vector <String> colnames = new Vector<>();
-
+    public static Vector<String> colnames = new Vector<>();
 
 
     private String page = "";
@@ -40,7 +38,7 @@ public class json extends GUI {
 
         } catch (Exception x) {
         }
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new BorderLayout());
         JTable jsontable = new JTable();
         try {
             File f = new File(address);
@@ -59,9 +57,8 @@ public class json extends GUI {
         colnames.addAll(jo.names());
         for (int i = 0; i < ja.size(); i++) {
             JsonObject record = ja.get(i).asObject();
-            for(int j = 0; j < colnames.size(); j++){
+            for (int j = 0; j < colnames.size(); j++) {
 
-                //System.out.println(record.get(colnames.get(j)));
                 rowsfill.add(String.valueOf(record.get(colnames.get(j))));
 
             }
@@ -72,7 +69,10 @@ public class json extends GUI {
         }
         System.out.println(dataList);
 
-        DefaultTableModel model = new DefaultTableModel(dataList,colnames);
+        DefaultTableModel model = new DefaultTableModel(dataList, colnames);
+        TableRowSorter sort = new TableRowSorter<>(model);
+        jsontable.setRowSorter(sort);
+        jsontable.setEnabled(false);
         jsontable.setModel(model);
         panel.add(jsontable);
         return panel;

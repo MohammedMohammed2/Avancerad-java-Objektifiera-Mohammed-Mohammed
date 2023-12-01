@@ -33,27 +33,4 @@ public class Calc extends GUI {
             System.out.println("error");
         }
     }
-
-    static void calcoj(){
-        try {
-            File f = new File(address);
-            sc = new Scanner(f);
-            String page = "";
-            while (sc.hasNext()) {
-                String line = sc.nextLine();
-                page += line;
-            }
-            JsonValue jv = Json.parse(page);
-            JsonArray jd = jv.asArray();
-            JsonObject jo = jd.get(0).asObject();
-            List<String> col = jo.names();
-            cols=col.size();
-
-
-
-
-    } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
