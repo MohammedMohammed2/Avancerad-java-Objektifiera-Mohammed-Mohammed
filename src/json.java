@@ -5,14 +5,17 @@ import com.eclipsesource.json.JsonValue;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.awt.dnd.Autoscroll;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
 public class json extends GUI {
+
     private Vector<Vector<String>> dataList = new Vector<>();
     public static Vector<String> rowsfill = new Vector<>();
     public static Vector<String> colnames = new Vector<>();
@@ -62,7 +65,7 @@ public class json extends GUI {
         colnames.addAll(jo.names());
 
         /*creates a jtaabel*/
-        JTable jsontable = new JTable();
+        JTable jsontable = new JTable(new DefaultTableModel(new String[]{"name","worker"},0));
 
         for (int i = 0; i < ja.size(); i++) {
             JsonObject record = ja.get(i).asObject();
@@ -78,14 +81,20 @@ public class json extends GUI {
             /*places data in a list*/
             dataList.add(new Vector<>(rowsfill));
 
+
             /*after a full line of colums is filled left to right this clears old data and moves on the next line and does the same thing over and over again*/
             rowsfill.clear();
         }
-        jsontable.setAutoCreateRowSorter(true);
+
         DefaultTableModel model = new DefaultTableModel(dataList, colnames);
+        TableRowSorter sortrow= new TableRowSorter<>(model);
+        jsontable.setRowSorter(sortrow);
+        jsontable.setAutoCreateRowSorter(true);
         jsontable.setEnabled(false);
         jsontable.setModel(model);
-        panel.add(jsontable);
+        panel.add(jsontable.getTableHeader(), BorderLayout.NORTH);
+        panel.add(jsontable, BorderLayout.CENTER);
+
 
         return panel;
     }
